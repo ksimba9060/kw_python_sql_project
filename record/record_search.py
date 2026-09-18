@@ -1,5 +1,5 @@
-from record.individual_record import show_individual_record
-from record.team_record import show_team_record
+#from record.individual_record import show_individual_record
+#from record.team_record import show_team_record
 
 
 def run_record_search() -> None:
