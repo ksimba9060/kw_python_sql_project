@@ -1,8 +1,11 @@
+from login import login
 from record.record_search import run_record_search
 from reservation.reservation_main import run_reservation
 
 
 def main() -> None:
+    login()
+
     while True:
         print("\n=== 야구팀 정보 검색 / 예매 ===")
         print("1. 선수 기록 검색")
