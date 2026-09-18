@@ -17,3 +17,5 @@ def run_reservation() -> None:
         show_reservation()
     elif choice != "0":
         print("올바른 메뉴 번호를 입력하세요.")
+
+

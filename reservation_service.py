@@ -1,15 +1,10 @@
-
-from reservation.seat_service import select_seat
-
 def create_reservation(supabase, customer_id: int) -> None:
     """예매번호를 생성하고 예매 내역을 저장한다."""
     try:
         # 1. 예매 수량 및 좌석 입력
-        game_seat_id = select_seat(game_seat_id)
-        if not game_seat_id:
-            return
+        game_seat_id = int(input("선택한 좌석 ID를 입력하세요 (테스트용): "))
+        quantity = int(input("예매 수량을 입력하세요: "))
         
-        quantity = int(input("예매 수량을 입력하세요: "))     
         if quantity <= 0:
             print("수량은 1 이상이어야 합니다.")
             return
@@ -65,7 +60,7 @@ def create_reservation(supabase, customer_id: int) -> None:
             .execute()
         )
 
-        # 6. 예매 성공 출력
+        # 6. 예매 성공 출력 (반환 대신 함수 내에서 직접 출력)
         reservation_id = insert_result.data[0]["reservation_id"]
         print("\n[예매 완료] 예매가 성공적으로 처리되었습니다!")
         print(f"부여된 예매 번호는 [{reservation_id}] 입니다. 내역 조회 시 사용해주세요.")
@@ -140,10 +135,11 @@ def show_reservation(supabase) -> None:
         print(f" 예매 번호 : {res_id}")
         print(f" 예매 날짜 : {res_data['reservation_date']}")
         print(f" 예매자명  : {cust_data['customer_name']}")
-        print(f" 경기 정보 : SSG vs {game_data['opponent_team']}")
+        print(f" 경기 정보 : 우리팀 vs {game_data['opponent_team']}")
         print(f" 선택 좌석 : {seat_data['seat_grade']}")
         print(f" 구매 수량 : {res_data['quantity']}매")
         print(f" 총 금액   : {res_data['total_price']:,}원")
-        print("=================================")
+        print("===============================")
+        
     except Exception as e:
         print(f"\n[조회 실패] 시스템 오류가 발생했습니다: {e}")
