@@ -144,7 +144,6 @@ def show_reservation(supabase) -> None:
         print(f" 선택 좌석 : {seat_data['seat_grade']}")
         print(f" 구매 수량 : {res_data['quantity']}매")
         print(f" 총 금액   : {res_data['total_price']:,}원")
-        print("===============================")
-        
+        print("=================================")
     except Exception as e:
         print(f"\n[조회 실패] 시스템 오류가 발생했습니다: {e}")
