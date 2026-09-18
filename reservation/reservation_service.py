@@ -11,7 +11,7 @@ def create_reservation(supabase, customer_id: int) -> None:
             
         print("예매를 진행 중입니다...")
 
-        # 2. 잔여 좌석 및 가격 조회 (select)
+        # 2. 잔여 좌석 및 가격 조회
         seat_result = (
             supabase
             .schema("team_4")
@@ -29,12 +29,12 @@ def create_reservation(supabase, customer_id: int) -> None:
         current_seats = int(seat_data["remaining_seats"])
         price = int(seat_data["price"])
 
-        # 3. 잔여 좌석 > 구매 수량 확인
+        # 3. 잔여 좌석 < 구매 수량 -> 부족
         if current_seats < quantity:
             print(f"잔여 좌석이 부족합니다. (현재 잔여: {current_seats}석)")
             return
 
-        # 4. 좌석 차감 (update)
+        # 4. 좌석 차감
         new_seats = current_seats - quantity
         (
             supabase
@@ -45,7 +45,7 @@ def create_reservation(supabase, customer_id: int) -> None:
             .execute()
         )
 
-        # 5. 예매 내역 등록 (insert) 및 예매번호 생성
+        # 5. 예매 내역 등록 및 예매번호 생성
         total_price = price * quantity
         insert_result = (
             supabase
