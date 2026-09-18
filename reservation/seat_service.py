@@ -5,34 +5,46 @@ from pathlib import Path
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-import database
+from database import supabase
 
 def select_seat(game_id):
 
-    response = (
-        database.supabase
-        .schema("team_4")
-        .table("game_seats")
-        .select("*")
-        .eq("game_id", game_id)
-        .execute()
-    )
+    try:
+        response = (
+            supabase
+            .schema("team_4")
+            .table("game_seats")
+            .select("*")
+            .eq("game_id", game_id)
+            .execute()
+        )
+    except Exception as error:
+        print(f"좌석 정보를 불러오지 못했습니다: {error}")
+        return None
 
-    seats = response.data
+    seats = response.data or []
+
+    print("DEBUG response:", response.data)
+    print("DEBUG game_id:", game_id)
 
     if not seats:
-        print("등록된 좌석 정보가 없습니다.")
+        print(f"선택한 경기(game_id={game_id})에 등록된 좌석 정보가 없습니다.")
         return None
 
     print("\n===== 좌석 정보 =====")
 
+    seat_groups = {}
     for seat in seats:
-        print(
-            f"{seat['game_seat_id']}. "
-            f"{seat['seat_grade']} | "
-            f"{seat['price']:,}원 | "
-            f"잔여 좌석 {seat['remaining_seats']}석"
-        )
+        seat_groups.setdefault(seat["seat_grade"], []).append(seat)
+
+    for seat_grade, grade_seats in seat_groups.items():
+        print(f"\n[{seat_grade}]")
+        for seat in grade_seats:
+            print(
+                f"{seat['game_seat_id']}. "
+                f"{seat['price']:,}원 | "
+                f"잔여 좌석 {seat['remaining_seats']}석"
+            )
 
     while True:
         try:

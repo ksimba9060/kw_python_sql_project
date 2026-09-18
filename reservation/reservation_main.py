@@ -1,5 +1,6 @@
 from reservation.game_service import select_game
 from reservation.reservation_service import show_reservation
+from reservation.seat_service import select_seat
 
 
 def run_reservation() -> None:
@@ -12,7 +13,9 @@ def run_reservation() -> None:
     choice = input("메뉴를 선택하세요: ").strip()
 
     if choice == "1":
-        select_game()
+        game_id = select_game()
+        if game_id is not None:
+            selected_seat = select_seat(game_id)
     elif choice == "2":
         show_reservation()
     elif choice != "0":

@@ -1,7 +1,14 @@
+import sys
+from pathlib import Path
+
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 from database import supabase
 
 
-def select_game() -> None:
+def select_game() -> int | None:
     """경기 일정을 조회하고 예매할 경기를 선택한다."""
     print("경기 일정 조회 및 선택 기능을 준비 중입니다.")
 
@@ -56,6 +63,3 @@ def select_game() -> None:
 
         except ValueError:
             print("숫자로 입력해주세요.")
-
-
-select_game()
