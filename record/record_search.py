@@ -1,5 +1,5 @@
-#from record.individual_record import show_individual_record
-#from record.team_record import show_team_record
+from record.individual_record import show_individual_record
+from record.team_record import show_team_record
 
 
 def run_record_search() -> None:
@@ -22,6 +22,7 @@ def run_record_search() -> None:
 
     role_by_choice = {"1": "pitcher", "2": "batter"}
     role = role_by_choice.get(role_choice)
+
     if role is None:
         print("올바른 메뉴 번호를 입력하세요.")
         return

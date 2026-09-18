@@ -1,10 +1,11 @@
-""" import pandas as pd
-from supabase import create_client
-SUPABASE_URL = "https://gcbrqpjbbzlbelksidqw.supabase.co"
-SUPABASE_KEY = "sb_publishable_y-YrLOSq5O2LP6r2o9BTBw_NAlfrlJ8"
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
-#### 로컬에서 돌려보려고 필요한 부분 
- """
+import sys
+from pathlib import Path
+
+# 현재 파일 기준 상위(루트) 폴더 경로를 시스템 경로에 등록
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
+# 이후 database.py에서 supabase 임포트
+from database import supabase
 
 def show_team_record(role: str) -> None:
     """선택한 투수 또는 타자의 팀 전체 기록을 조회한다."""
