@@ -140,7 +140,7 @@ def show_reservation(supabase) -> None:
         print(f" 예매 번호 : {res_id}")
         print(f" 예매 날짜 : {res_data['reservation_date']}")
         print(f" 예매자명  : {cust_data['customer_name']}")
-        print(f" 경기 정보 : 우리팀 vs {game_data['opponent_team']}")
+        print(f" 경기 정보 : SSG vs {game_data['opponent_team']}")
         print(f" 선택 좌석 : {seat_data['seat_grade']}")
         print(f" 구매 수량 : {res_data['quantity']}매")
         print(f" 총 금액   : {res_data['total_price']:,}원")
