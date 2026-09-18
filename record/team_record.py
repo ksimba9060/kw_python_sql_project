@@ -1,10 +1,10 @@
-import pandas as pd
+""" import pandas as pd
 from supabase import create_client
 SUPABASE_URL = "https://gcbrqpjbbzlbelksidqw.supabase.co"
 SUPABASE_KEY = "sb_publishable_y-YrLOSq5O2LP6r2o9BTBw_NAlfrlJ8"
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 #### 로컬에서 돌려보려고 필요한 부분 
-
+ """
 
 def show_team_record(role: str) -> None:
     """선택한 투수 또는 타자의 팀 전체 기록을 조회한다."""
@@ -21,30 +21,30 @@ def pitcher_team_record():
     right_era = calculate_team_era("throw_hand","우투")
     print(f"팀의 평균 우투 era는 {right_era:.2f}입니다.")
     left_era = calculate_team_era("throw_hand","좌투")
-    print(f"팀의 평균 우투 era는 {left_era:.2f}입니다.")
+    print(f"팀의 평균 좌투 era는 {left_era:.2f}입니다.")
 
     선발_era = calculate_team_era("pitcher_role","선발")
-    print(f"팀의 평균 era는 {선발_era:.2f}입니다.")
+    print(f"팀 선발 투수의 평균 era는 {선발_era:.2f}입니다.")
     중간_era = calculate_team_era("pitcher_role","중간")
-    print(f"팀의 평균 era는 {중간_era:.2f}입니다.")
+    print(f"팀 중간 투수의 평균 era는 {중간_era:.2f}입니다.")
     마무리_era = calculate_team_era("pitcher_role","마무리")
-    print(f"팀의 평균 era는 {마무리_era:.2f}입니다.")
+    print(f"팀 마무리 투수의 평균 era는 {마무리_era:.2f}입니다.")
 
 def hitter_team_record():
     team_avg = calculate_team_avg_hit(0,1) ## 제약조건이 없는 경우 첫번째 변수를 0으로 넣음
     print(f"팀의 평균 타율은 {team_avg:.2f}입니다.")
 
     right_avg = calculate_team_era("target_left_right","우타")
-    print(f"팀의 평균 우타 타율은 {right_avg:.2f}입니다.")
+    print(f"팀 우타자의 평균 타율은 {right_avg:.2f}입니다.")
     left_avg = calculate_team_era("target_left_right","좌타")
-    print(f"팀의 평균 좌타 타율은 {left_avg:.2f}입니다.")
+    print(f"팀 좌타자의 평균 타율은 {left_avg:.2f}입니다.")
 
     in_avg = calculate_team_era("target_position","내야수")
-    print(f"팀의 평균 내야수 타율은 {in_avg:.2f}입니다.")
+    print(f"팀 내야수 평균 타율은 {in_avg:.2f}입니다.")
     out_avg = calculate_team_era("target_position","외야수")
-    print(f"팀의 평균 외야수 타율은 {out_avg:.2f}입니다.")    
+    print(f"팀 외야수 평균 타율은 {out_avg:.2f}입니다.")    
     catch_avg = calculate_team_era("target_position","포수")
-    print(f"팀의 평균 포수 타율은 {catch_avg:.2f}입니다.")
+    print(f"팀 포수 평균 타율은 {catch_avg:.2f}입니다.")
 
 def parse_baseball_innings(ip_value: float) -> float:
     # 야구 이닝 표기법(.1 -> 1/3, .2 -> 2/3)을 실제 수치로 변환합니다.
@@ -109,5 +109,3 @@ def calculate_team_avg_hit(제약변수, 조건):
         }).execute()
     return res1
 
-
-show_team_record("pitcher")
