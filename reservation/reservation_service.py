@@ -1,10 +1,15 @@
+
+from reservation.seat_service import select_seat
+
 def create_reservation(supabase, customer_id: int) -> None:
     """예매번호를 생성하고 예매 내역을 저장한다."""
     try:
         # 1. 예매 수량 및 좌석 입력
-        game_seat_id = int(input("선택한 좌석 ID를 입력하세요 (테스트용): "))
-        quantity = int(input("예매 수량을 입력하세요: "))
+        game_seat_id = select_seat(game_seat_id)
+        if not game_seat_id:
+            return
         
+        quantity = int(input("예매 수량을 입력하세요: "))     
         if quantity <= 0:
             print("수량은 1 이상이어야 합니다.")
             return
@@ -60,7 +65,7 @@ def create_reservation(supabase, customer_id: int) -> None:
             .execute()
         )
 
-        # 6. 예매 성공 출력 (반환 대신 함수 내에서 직접 출력)
+        # 6. 예매 성공 출력
         reservation_id = insert_result.data[0]["reservation_id"]
         print("\n[예매 완료] 예매가 성공적으로 처리되었습니다!")
         print(f"부여된 예매 번호는 [{reservation_id}] 입니다. 내역 조회 시 사용해주세요.")
